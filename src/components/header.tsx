@@ -30,8 +30,13 @@ export default function Header() {
                 {
                     profile && <>
                         <NavigationMenuItem>
-                            <NzNavigationMenuLink href="/dashboard" active className={navigationMenuTriggerStyle()}>
-                                Dashboard
+                            <NzNavigationMenuLink href="/dashboard/server" active className={navigationMenuTriggerStyle()}>
+                                Server
+                            </NzNavigationMenuLink>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <NzNavigationMenuLink href="/dashboard/service" className={navigationMenuTriggerStyle()}>
+                                Service
                             </NzNavigationMenuLink>
                         </NavigationMenuItem>
                     </>

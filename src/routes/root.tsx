@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Card } from "@/components/ui/card";
 import { ThemeProvider } from "@/components/theme-provider";
 import Header from "@/components/header";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function Root() {
     return (
@@ -16,6 +17,7 @@ export default function Root() {
                     &copy; 2019-2024 哪吒监控
                 </footer>
             </Card>
+            <Toaster />
         </ThemeProvider>
     );
 }

@@ -2,6 +2,6 @@ import { User } from "./user";
 
 export interface AuthContextProps {
     profile: User | undefined;
-    login: (profile: User | undefined) => void;
+    login: (username: string, password: string) => void;
     logout: () => void;
 }

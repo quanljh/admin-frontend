@@ -66,7 +66,7 @@ export default () => {
                             <FormItem>
                                 <FormLabel>Password</FormLabel>
                                 <FormControl>
-                                    <Input placeholder="shadcn" {...field} />
+                                    <Input type="password" placeholder="shadcn" {...field} />
                                 </FormControl>
                                 <FormDescription>
                                     This is your public display name.
@@ -75,7 +75,7 @@ export default () => {
                             </FormItem>
                         )}
                     />
-                    <Button type="submit">Submit</Button>
+                    <Button type="submit">Login</Button>
                 </form>
             </Form>
         </div>

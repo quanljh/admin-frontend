@@ -15,7 +15,7 @@ import { AuthProvider } from './hooks/useAuth';
 
 const router = createBrowserRouter([
   {
-    path: "/dashboard/",
+    path: "/dashboard",
     element: <AuthProvider><ProtectedRoute><Root /></ProtectedRoute></AuthProvider>,
     errorElement: <ErrorPage />,
     children: [

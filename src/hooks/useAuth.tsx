@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMainStore } from "./useMainStore";
 import { AuthContextProps } from "@/types";
-import { getProfile, login as loginRequest } from "@/api/user";
+import { getProfile, login as loginRequest, refreshToken } from "@/api/user";
 import { toast } from "sonner";
 
 const AuthContext = createContext<AuthContextProps>({
@@ -16,23 +16,34 @@ export const AuthProvider = ({ children }: {
 }) => {
     const profile = useMainStore(store => store.profile)
     const setProfile = useMainStore(store => store.setProfile)
-    const [lastUpdatedAt, setLastUpdatedAt] = useState<number>(0);
+    const initialized = useRef(false)
+    const lastRefreshedAt = useRef(0)
 
-    // FIXME @naiba 触发了两次
     useEffect(() => {
-        if (profile && Date.now() - lastUpdatedAt > 1000 * 60 * 5) {
-            console.log(profile, Date.now(), lastUpdatedAt)
-            getProfile().then((data) => {
-                setLastUpdatedAt(Date.now())
-                if (data && data.username !== profile.username) {
-                    console.log('bingo', data.username);
-                    setProfile(data)
-                }
-            }).catch(() => {
-                setLastUpdatedAt(Date.now())
-                setProfile(undefined)
-            })
+        if (initialized.current) {
+            return
         }
+        initialized.current = true;
+        (async () => {
+            while (true) {
+                if (!profile) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000))
+                    continue
+                }
+                if (lastRefreshedAt.current + 1000 * 60 * 10 > Date.now()) {
+                    await new Promise((resolve) => setTimeout(resolve, 1000))
+                    continue
+                }
+                try {
+                    await refreshToken();
+                    const user = await getProfile();
+                    setProfile(user);
+                    lastRefreshedAt.current = Date.now();
+                } catch (error) {
+                    setProfile(undefined);
+                }
+            }
+        })();
     }, [profile])
 
     const navigate = useNavigate();

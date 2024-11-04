@@ -7,7 +7,7 @@ export const ProtectedRoute = ({ children }: {
     const { profile } = useAuth();
 
     if (!profile && window.location.pathname !== "/dashboard/login") {
-        return <Navigate to="/dashboard/login" />;
+        return <><Navigate to="/dashboard/login" />{children}</>;
     }
 
     return children;

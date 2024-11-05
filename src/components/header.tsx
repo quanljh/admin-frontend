@@ -22,7 +22,7 @@ export default function Header() {
         <NavigationMenu className="max-w-full">
             <NavigationMenuList>
                 <Card>
-                    <NavigationMenuLink href="/dashboard/" className={navigationMenuTriggerStyle() + ' !text-foreground'}>
+                    <NavigationMenuLink href="/dashboard" className={navigationMenuTriggerStyle() + ' !text-foreground'}>
                         <img className="h-7 mr-1" src='/dashboard/logo.svg' /> 哪吒监控
                     </NavigationMenuLink>
                 </Card>
@@ -30,7 +30,7 @@ export default function Header() {
                 {
                     profile && <>
                         <NavigationMenuItem>
-                            <NzNavigationMenuLink href="/dashboard/server" active className={navigationMenuTriggerStyle()}>
+                            <NzNavigationMenuLink href="/dashboard" active className={navigationMenuTriggerStyle()}>
                                 Server
                             </NzNavigationMenuLink>
                         </NavigationMenuItem>

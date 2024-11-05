@@ -11,6 +11,7 @@ import Root from "./routes/root";
 import ErrorPage from "./error-page";
 import ProtectedRoute from './routes/protect';
 import LoginPage from './routes/login';
+import ServerPage from './routes/server';
 import { AuthProvider } from './hooks/useAuth';
 
 const router = createBrowserRouter([
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/login",
         element: <LoginPage />,
+      },
+      {
+        path: "/dashboard",
+        element: <ServerPage />,
       },
     ]
   },

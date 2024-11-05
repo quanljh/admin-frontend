@@ -46,3 +46,7 @@ export async function fetcher<T>(method: FetcherMethod, path: string, data?: any
     }
     return responseData.data;
 }
+
+export async function swrFetcher<T>(input: string | URL | globalThis.Request, init?: RequestInit) {
+    return fetcher<T>(init?.method as FetcherMethod, input.toString(), init?.body);
+}

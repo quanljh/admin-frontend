@@ -13,6 +13,7 @@ import { NzNavigationMenuLink } from "./xui/navigation-menu";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuPortal, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./ui/dropdown-menu";
 import { User, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 
 export default function Header() {
@@ -22,21 +23,21 @@ export default function Header() {
         <NavigationMenu className="max-w-full">
             <NavigationMenuList>
                 <Card>
-                    <NavigationMenuLink href="/dashboard" className={navigationMenuTriggerStyle() + ' !text-foreground'}>
-                        <img className="h-7 mr-1" src='/dashboard/logo.svg' /> 哪吒监控
+                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle() + ' !text-foreground'}>
+                        <Link to="/dashboard"><img className="h-7 mr-1" src='/dashboard/logo.svg' /> 哪吒监控</Link>
                     </NavigationMenuLink>
                 </Card>
 
                 {
                     profile && <>
                         <NavigationMenuItem>
-                            <NzNavigationMenuLink href="/dashboard" active className={navigationMenuTriggerStyle()}>
-                                Server
+                            <NzNavigationMenuLink asChild active className={navigationMenuTriggerStyle()}>
+                                <Link to="/dashboard">Server</Link>
                             </NzNavigationMenuLink>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
-                            <NzNavigationMenuLink href="/dashboard/service" className={navigationMenuTriggerStyle()}>
-                                Service
+                            <NzNavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                                <Link to="/dashboard/service">Service</Link>
                             </NzNavigationMenuLink>
                         </NavigationMenuItem>
                     </>

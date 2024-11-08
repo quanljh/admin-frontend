@@ -22,6 +22,8 @@ export enum FetcherMethod {
     DELETE = "DELETE",
 }
 
+let lastestRefreshTokenAt = 0;
+
 export async function fetcher<T>(method: FetcherMethod, path: string, data?: any): Promise<T> {
     let response;
     if (method === FetcherMethod.GET || method === FetcherMethod.DELETE) {
@@ -44,6 +46,13 @@ export async function fetcher<T>(method: FetcherMethod, path: string, data?: any
     if (!responseData.success) {
         throw new Error(responseData.error);
     }
+
+    // auto refresh token
+    if (!lastestRefreshTokenAt || Date.now() - lastestRefreshTokenAt > 1000 * 60 * 60) {
+        lastestRefreshTokenAt = Date.now();
+        fetch("/api/v1/refresh-token")
+    }
+
     return responseData.data;
 }
 

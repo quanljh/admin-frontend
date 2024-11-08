@@ -1,8 +1,8 @@
-import { createContext, useContext, useEffect, useMemo, useRef } from "react";
+import { createContext, useContext, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMainStore } from "./useMainStore";
 import { AuthContextProps } from "@/types";
-import { getProfile, login as loginRequest, refreshToken } from "@/api/user";
+import { getProfile, login as loginRequest } from "@/api/user";
 import { toast } from "sonner";
 
 const AuthContext = createContext<AuthContextProps>({
@@ -16,35 +16,17 @@ export const AuthProvider = ({ children }: {
 }) => {
     const profile = useMainStore(store => store.profile)
     const setProfile = useMainStore(store => store.setProfile)
-    const initialized = useRef(false)
-    const lastRefreshedAt = useRef(0)
 
     useEffect(() => {
-        if (initialized.current) {
-            return
-        }
-        initialized.current = true;
         (async () => {
-            while (true) {
-                if (!profile) {
-                    await new Promise((resolve) => setTimeout(resolve, 1000))
-                    continue
-                }
-                if (lastRefreshedAt.current + 1000 * 60 * 10 > Date.now()) {
-                    await new Promise((resolve) => setTimeout(resolve, 1000))
-                    continue
-                }
-                try {
-                    await refreshToken();
-                    const user = await getProfile();
-                    setProfile(user);
-                    lastRefreshedAt.current = Date.now();
-                } catch (error) {
-                    setProfile(undefined);
-                }
+            try {
+                const user = await getProfile();
+                setProfile(user);
+            } catch (error) {
+                setProfile(undefined);
             }
         })();
-    }, [profile])
+    }, [])
 
     const navigate = useNavigate();
 

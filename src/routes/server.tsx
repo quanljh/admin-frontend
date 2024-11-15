@@ -65,7 +65,7 @@ export default function ServerPage() {
     })
 
     return <div className="px-9">
-        <div className="flex space-between mt-4">
+        <div className="flex space-between mt-4 pb-4">
             <h1 className="text-3xl font-bold tracking-tight">
                 Server
             </h1>

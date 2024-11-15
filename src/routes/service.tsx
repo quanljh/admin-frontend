@@ -1,6 +1,6 @@
 import { swrFetcher } from "@/api/api"
 import { Checkbox } from "@/components/ui/checkbox"
-import { ServiceCard } from "@/components/xui/service"
+import { ServiceCard } from "@/components/service"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ModelService as Service } from "@/types"
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"

@@ -1,6 +1,6 @@
 import { swrFetcher } from "@/api/api"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
+import { ServiceCard } from "@/components/xui/service"
 import { Plus } from "lucide-react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ModelService as Service } from "@/types"
@@ -71,9 +71,7 @@ export default function ServicePage() {
             <h1 className="text-3xl font-bold tracking-tight">
                 Service
             </h1>
-            <Button className="ml-auto">
-                <Plus /> Add New Service
-            </Button>
+            <ServiceCard className="ml-auto"/>
         </div>
         <Table>
             <TableHeader>
@@ -117,5 +115,5 @@ export default function ServicePage() {
                 )}
             </TableBody>
         </Table>
-    </div>
+    </div >
 }

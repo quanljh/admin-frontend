@@ -11,6 +11,13 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
+import {
     Form,
     FormControl,
     FormField,
@@ -21,25 +28,36 @@ import {
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { ModelService } from "@/types"
 
 interface ServiceCardProps {
     className?: string;
+    data?: ModelService;
 }
 
 const formSchema = z.object({
     name: z.string(),
     target: z.string(),
-    type: z.number().default(1),
+    type: z.number(),
     enableShowInService: z.boolean().default(false),
     duration: z.number().min(30),
 })
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({ className }) => {
+const monitorTypes = {
+    1: "HTTP GET (Certificate expiration and changes)",
+    2: "ICMP Ping",
+    3: "TCPing",
+}
+
+export const ServiceCard: React.FC<ServiceCardProps> = ({ className, data }) => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            type: 1,
-            enableShowInService: false,
+            name: data?.name,
+            target: data?.target,
+            type: data?.type,
+            enableShowInService: data?.enable_show_in_service,
+            duration: data?.duration,
         },
     })
 
@@ -57,11 +75,6 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ className }) => {
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle>New Service</DialogTitle>
-                    {/*
-                        <DialogDescription>
-                            Anyone who has this link will be able to view this.
-                        </DialogDescription>
-                    */}
                 </DialogHeader>
                 <div className="items-center">
                     <Form {...form}>
@@ -84,10 +97,34 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ className }) => {
                                 name="target"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Password</FormLabel>
+                                        <FormLabel>Target</FormLabel>
                                         <FormControl>
                                             <Input type="link" {...field} />
                                         </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            <FormField
+                                control={form.control}
+                                name="type"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Type</FormLabel>
+                                        <Select onValueChange={field.onChange} defaultValue={`${field.value}`}>
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder="Select service type" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {Object.entries(monitorTypes).map(([k, v]) => (
+                                                    <SelectItem value={k}>
+                                                        {v}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
                                         <FormMessage />
                                     </FormItem>
                                 )}

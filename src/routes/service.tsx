@@ -1,7 +1,6 @@
 import { swrFetcher } from "@/api/api"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ServiceCard } from "@/components/xui/service"
-import { Plus } from "lucide-react"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { ModelService as Service } from "@/types"
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from "@tanstack/react-table"
@@ -71,7 +70,7 @@ export default function ServicePage() {
             <h1 className="text-3xl font-bold tracking-tight">
                 Service
             </h1>
-            <ServiceCard className="ml-auto"/>
+            <ServiceCard className="ml-auto" />
         </div>
         <Table>
             <TableHeader>

@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { AlertCircle } from "lucide-react"
+import { useEffect } from "react"
 import { useNavigate, useRouteError } from "react-router-dom"
 
 interface RouterError {
@@ -13,6 +14,12 @@ export default function ErrorPage() {
     const error = useRouteError() as RouterError
     const navigate = useNavigate()
     console.error(error)
+
+    useEffect(() => {
+        if (window.location.pathname !== "/dashboard/404") {
+          window.location.href = "/dashboard/404";
+        }
+      }, []);
 
     return (
         <div className="min-h-screen w-full flex items-center justify-center bg-background p-4">

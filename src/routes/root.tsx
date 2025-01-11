@@ -44,7 +44,7 @@ export default function Root() {
                     </div>
                 </div>
                 <footer className="mx-5 py-5 text-foreground/50 font-light text-xs text-center">
-                    &copy; 2019-{new Date().getFullYear()} {t("nezha")} {settingData?.version}
+                    &copy; 2024-{new Date().getFullYear()} {t("nezha")} {settingData?.version}
                 </footer>
             </section>
             <Toaster />

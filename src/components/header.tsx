@@ -92,7 +92,7 @@ export default function Header() {
                             }
                         >
                             <Link to={profile ? "/dashboard" : "#"}>
-                                <img className="h-7 mr-1" src="/dashboard/logo.svg" />
+                                <img className="h-7 mr-1" src="https://i.imgur.com/uY7RoWN.png" />
                                 {t("nezha")}
                             </Link>
                         </NavigationMenuLink>
